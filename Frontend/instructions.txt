@@ -1,0 +1,5 @@
+https://api.spoonacular.com/recipes/716429/information?apiKey=YOUR-API-KEY&includeNutrition=true.
+
+https://api.spoonacular.com/recipes/4632/card?apiKey=3300b39907ba48109dcef0b2020ac99c
+
+https://api.spoonacular.com/food/search?apiKey=3300b39907ba48109dcef0b2020ac99c&query=apple&number=2
