@@ -106,19 +106,30 @@ nav{
 
 .hero-images{
     margin: auto;
+    width : clamp(10rem , 10vw , 20vw );
+    height: clamp(10rem , 10vw , 20vw );
     border-radius: 6px;
     background: #e0e0e0;
     box-shadow:  19px 19px 38px rgba(0, 0, 0, 0.411);
-    height: 10rem;
-    width: 10rem;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+}
 
-}
-.loader img{
+.loader-img{
     background-color: #9d9a9a;
-    margin: auto;
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
 }
+.splide__arrow , .splide__pagination{
+    display: none !important;
+}
+
+.image-holder{
+    display: flex;
+    /* since default is row so it will make height of each children same */
+}
+
 @media screen and (max-width:700px) {
     .logo{
         width: 3rem;

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodilicious</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/css/splide-core.min.css">
 </head>
+
 <body>
     <nav>
         <div class="logo"><img src="Images/logo.png" alt="" class="logo-img"></div>
@@ -15,16 +18,23 @@
     <main>
 
         <section class="hero">
-            <div class="hero-images">
-                <img src="Images/Loading.gif" alt="loader">
-            </div>
+                <!-- <img src="Images/Loading.gif" alt="loader"> -->
+                <div class="splide hero-images">
+                        <div class="splide__track">
+                            <ul class="splide__list">
+                                <li class="splide__slide image-holder"><img class="loader-img" src="Images/carosouel/burger.jpg" alt=""></li>
+                                <li class="splide__slide image-holder"><img class="loader-img" src="Images/carosouel/ice-cream.jpg" alt=""></li>
+                                <li class="splide__slide image-holder"><img class="loader-img" src="Images/carosouel/cookies.png" alt=""></li>
+                            </ul>
+                        </div>
+                </div>
 
-        <section class="content-search">
-            <div class="search-area">
-                <input type="text" class="search" placeholder="burger">
-                <box-icon name='search' color='#d13ed7' class="search-icon" ></box-icon>
-            </div>
-        </section>
+            <section class="content-search">
+                <div class="search-area">
+                    <input type="text" class="search" placeholder="burger">
+                    <box-icon name='search' color='#d13ed7' class="search-icon"></box-icon>
+                </div>
+            </section>
         </section>
         <section class="recipie-card">
             <!-- <div class="card">
@@ -35,8 +45,9 @@
             </div> -->
         </section>
     </main>
-    <script src="script.js"></script>
-    <script src="oop.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/js/splide.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
+    <script src="oop.js"></script>
 </body>
+
 </html>
