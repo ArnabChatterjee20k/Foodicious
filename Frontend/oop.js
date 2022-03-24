@@ -100,20 +100,23 @@ class Hero_carosouel {
     }
 }
 
-// document.querySelector("body").onload = ()=>{
-//     let data = new Fetch_Data("burger",".recipie-card")
-// }
-/**
- * make a method for search bar input to show the changes
- */
+document.querySelector("body").onload = ()=>{
+    // let data = new Fetch_Data("burger",".recipie-card")
+    var splide = new Splide('.splide', {
+        type: 'loop',
+        perPage: 1,
+        autoplay: true,
+    });
+    
+    splide.mount();
+
+    var type = new Typed(".typing",{
+        strings: ["pizza","burger","cake","biriyani","chocolates"],
+        typeSpeed: 50,
+        loop: true,
+        backDelay: 900,
+        backSpeed: 30
+    })
+}
 
 
-
-
-var splide = new Splide('.splide', {
-    type: 'loop',
-    perPage: 1,
-    autoplay: true
-});
-
-splide.mount();

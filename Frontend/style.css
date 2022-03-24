@@ -1,9 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital@1&display=swap');
+
+:root{
+    --mars: linear-gradient(to right, #ee9617 0%, #fe5858 74%);
+    --entryscene : linear-gradient(315deg, #bf3a30 0%, #864ba2 74%);
+    
+}
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+*::selection{
+    color: white;
+    background-color: orange;
 }
 
 body{
@@ -16,16 +27,21 @@ h1{
     font-size: 1.5rem;
 }
 
+/* nav section */
+
+nav{
+    display: flex;
+    align-items: center;
+}
+
+
 .title{
     font-family: 'Viga', sans-serif;
     color: #ea7b0c;
     filter: drop-shadow(2px 4px 6px #f5f5f5);
 }
 
-nav{
-    display: flex;
-    align-items: center;
-}
+
 .logo{
     align-self: flex-start;
     width: 5rem;
@@ -36,11 +52,121 @@ nav{
     max-width: 100%;
 }
 
+
+/* ***** HERO section ****** */
+.hero{
+    /* min-height: 100vh; */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(3em,10vw,12em);
+    flex-wrap: wrap;
+}
+
+.hero-text{
+    padding: 2em;
+    margin: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    filter: none !important;
+}
+.hero-title{
+    width: 100%;/* to prevent collapsing */
+    font-size:clamp(2rem , 6vw , 10rem);;
+    text-align: center;
+    text-shadow: 19px 19px 38px rgba(0, 0, 0, 0.411);
+    
+    background: var(--entryscene);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: text alternate-reverse infinite 2s;
+
+}
+
+.hero-text::before{
+    content: "😋";
+    position: absolute;
+    background-color: #bf3a30;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    bottom: 100%;
+    font-size: clamp(1rem,6vw,5rem);
+    left: calc(50% - clamp(1rem,2vw,3rem));
+    animation: emoji alternate-reverse 10s infinite;
+}
+
+@keyframes emoji {
+    0%{
+        background-color: #864ba2;
+    }
+    50%{
+        background-color: #874356;
+    }
+    100%{
+        background-color: #bf3a30;
+    }
+}
+/* .emoji{
+    position: absolute;
+    top: 10%;
+    font-size: clamp(4rem , 6vw , 8rem);
+    background-color: #bf3a30;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+} */
+.typing-anime{
+    display: flex;
+    font-size: 1.3rem;
+    font-family: sans-serif;
+    font-weight: 900;
+    padding: 0 2em;
+    /* background: rgb(255, 0, 0); */
+    /* box-shadow:  inset -20px -20px 60px white,
+                inset 20px 20px 60px #ffffff;   */
+    border-color: transparent;
+    color: #874356;
+}
+.typing-cursor , .typed-cursor{
+    color: black;
+}
+.hero-images{
+    margin: auto;
+    width : clamp(10rem , 15vw , 20vw );
+    height: clamp(10rem , 15vw , 20vw );
+    border-radius: 6px;
+    background: #e0e0e0;
+    box-shadow:  19px 19px 38px rgba(0, 0, 0, 0.411);
+    display: flex;
+    flex-direction: column;
+}
+
+.loader-img{
+    background-color: #9d9a9a;
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.splide__arrow , .splide__pagination{
+    display: none !important;
+}
+
+.image-holder{
+    display: flex;
+    /* since default is row so it will make height of each children same */
+}
+
+/* ***** search section ********* */
 .content-search{
     display: flex;
-    
     justify-content: center;
     align-items: center;
+    margin: 2em;
 }
 
 .search-area{
@@ -104,31 +230,6 @@ nav{
     filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.3));
 }
 
-.hero-images{
-    margin: auto;
-    width : clamp(10rem , 10vw , 20vw );
-    height: clamp(10rem , 10vw , 20vw );
-    border-radius: 6px;
-    background: #e0e0e0;
-    box-shadow:  19px 19px 38px rgba(0, 0, 0, 0.411);
-    display: flex;
-    flex-direction: column;
-}
-
-.loader-img{
-    background-color: #9d9a9a;
-    max-width: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-.splide__arrow , .splide__pagination{
-    display: none !important;
-}
-
-.image-holder{
-    display: flex;
-    /* since default is row so it will make height of each children same */
-}
 
 @media screen and (max-width:700px) {
     .logo{
