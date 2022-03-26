@@ -8,7 +8,7 @@ class Card {
         }
     }
 
-    change_state({name=null,image=null,link=null,content=null}={}){
+    change_state({name=null,image=null,link=null,content=null,id=null}={}){
         this.state = {...this.state , name,image,link,content}
         return this
     }
@@ -20,6 +20,7 @@ class Card {
     create_card() {
         let card = document.createElement("div")
         card.setAttribute("class", "card")
+        card.setAttribute("id", `${this.state.id}`)
 
         let card_img = document.createElement("div")
         card_img.setAttribute("class", "card-img")
@@ -37,6 +38,9 @@ class Card {
         card_name.append(name_paragraph)
         card.append(card_name)
 
+        card.childNodes.forEach((element)=>{
+            element.id = this.state.id
+        })
         return card
     }
 }
@@ -45,7 +49,7 @@ class Recipie_Section extends Card {
     constructor(recipie_card_holder) {
         super();
         this.card_holder = document.querySelector(recipie_card_holder);
-        this.cards = [];
+        this.cards_collection = [];
     }
     /**
      * 
@@ -53,8 +57,14 @@ class Recipie_Section extends Card {
      */
     insertCard() {
         let card = this.create_card();
-        this.cards.push(this.state) // pushing the card state 
+        this.cards_collection.push(this.state) // pushing the card state 
         this.card_holder.append(card)
+
+        // getting the details of the clicked card from the this.
+        card.onclick = (e)=>{
+            alert(e.target.parentElement.id)
+            console.log(this.cards_collection[e.target.parentElement.id])
+        }
         return this // for chaining
     }
 }
@@ -76,8 +86,8 @@ class Fetch_Data extends Recipie_Section {
      */
     async get_recipie() {
         const data = await fetch(this.url).then((res) => res.json())
-        data.searchResults[0].results.map(({ name, image }) => {
-            this.state = {...this.state,name,image}
+        data.searchResults[0].results.map(({ name, image },index) => {
+            this.state = {...this.state,name,image,id:index}
             this.insertCard()
         })
         return this
