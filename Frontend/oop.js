@@ -1,25 +1,31 @@
 class Card {
     constructor() {
-        this.current_number_of_cards = 0;
-        this.cards = ++this.current_number_of_cards;
+        this.state = {
+            name:null,
+            image:null,
+            link:null,
+            content:null
+        }
     }
 
+    change_state({name=null,image=null,link=null,content=null}={}){
+        this.state = {...this.state , name,image,link,content}
+        return this
+    }
 
     /**
      * 
-     * @param {string} name 
-     * @param {string} image 
      * @returns card-div-element
      */
-    create_card(name, image) {
+    create_card() {
         let card = document.createElement("div")
         card.setAttribute("class", "card")
 
         let card_img = document.createElement("div")
         card_img.setAttribute("class", "card-img")
         let img = document.createElement("img")
-        img.src = image
-        img.alt = name
+        img.src = this.state.image
+        img.alt = this.state.name
         card_img.append(img)
         card.append(card_img);
 
@@ -27,7 +33,7 @@ class Card {
         card_name.setAttribute("class", "card-name")
         let name_paragraph = document.createElement("p")
         name_paragraph.setAttribute("class", "card-recipe-name")
-        name_paragraph.textContent = name.length > 20 ? `${name.slice(0, 20)}...` : name
+        name_paragraph.textContent = this.state.name.length > 20 ? `${this.state.name.slice(0, 20)}...` : this.state.name
         card_name.append(name_paragraph)
         card.append(card_name)
 
@@ -36,29 +42,26 @@ class Card {
 }
 
 class Recipie_Section extends Card {
-    constructor(recipie_card_carosuel_div) {
+    constructor(recipie_card_holder) {
         super();
-        this.card_carosuel_div = document.querySelector(recipie_card_carosuel_div);
+        this.card_holder = document.querySelector(recipie_card_holder);
         this.cards = [];
     }
     /**
      * 
-     * @param {string} name 
-     * @param {string} image 
      * @returns this
      */
-    insertCard(name, image) {
-        let card = this.create_card(name = name, image = image);
-        this.cards.push({ index: this.current_number_of_cards, card })
-        this.card_carosuel_div.append(card)
-
+    insertCard() {
+        let card = this.create_card();
+        this.cards.push(this.state) // pushing the card state 
+        this.card_holder.append(card)
         return this // for chaining
     }
 }
 
 class Fetch_Data extends Recipie_Section {
-    constructor(query, body_carosuel_div) {
-        super(body_carosuel_div); // calling the constructor of the Recipie_Section
+    constructor(query,card_holder_div) {
+        super(card_holder_div)
         this.url = `https://api.spoonacular.com/food/search?apiKey=3300b39907ba48109dcef0b2020ac99c&query=${query}&number=10`;
         this.state = []
         this.parent_key = "searchResults";
@@ -74,49 +77,64 @@ class Fetch_Data extends Recipie_Section {
     async get_recipie() {
         const data = await fetch(this.url).then((res) => res.json())
         data.searchResults[0].results.map(({ name, image }) => {
-            this.insertCard(name, image)
+            this.state = {...this.state,name,image}
+            this.insertCard()
         })
         return this
     }
 }
 
-class Hero_carosouel {
-    constructor(div_class = ".hero") {
-        this.location = "Images/carosouel/"
-        this.format = ".png"
-        this.image_list = ["burger", "pizza", "ice-cream", "cookies"]
-        this.div = document.querySelector(div_class)
+class Hero_Animation {
+    constructor(){
+        this.play_carosouel()
+        this.play_type_writer()
     }
-    build_carosouel() {
-        let carosuel_div = document.createElement("div")
-        carosuel_div.setAttribute("class", "splide")
-        this.div.append(carosuel_div)
-        var splide = new Splide(".splide", {
-            type: 'fade',
-            rewind: true,
-            autoplay: true
+    play_carosouel(){
+        var splide = new Splide('.splide', {
+            type: 'loop',
+            perPage: 1,
+            autoplay: true,
         });
+        
         splide.mount();
     }
+
+    play_type_writer(){
+        var type = new Typed(".typing",{
+            strings: ["pizza","burger","cake","biriyani","chocolates"],
+            typeSpeed: 50,
+            loop: true,
+            backDelay: 900,
+            backSpeed: 30
+        })
+    }
+    
 }
 
-document.querySelector("body").onload = ()=>{
-    // let data = new Fetch_Data("burger",".recipie-card")
-    var splide = new Splide('.splide', {
-        type: 'loop',
-        perPage: 1,
-        autoplay: true,
-    });
-    
-    splide.mount();
+class Search_bar extends Fetch_Data{
+    constructor(search_input,search_btn) {
+        super()
+        this.input = document.querySelector(search_input)
+        this.btn = document.querySelector(search_btn)
 
-    var type = new Typed(".typing",{
-        strings: ["pizza","burger","cake","biriyani","chocolates"],
-        typeSpeed: 50,
-        loop: true,
-        backDelay: 900,
-        backSpeed: 30
-    })
+        this.fetch_data()
+    }
+
+    match_pattern(data){
+        let check_pattern = new RegExp("^[\s\t\n]*$")
+        return check_pattern.test(data)
+    }
+
+    fetch_data(){
+        const query = this.input.value
+        this.btn.onclick = ()=>{
+            console.log(this.match_pattern(query))
+        }
+    }
+}
+document.querySelector("body").onload = ()=>{
+    let data = new Fetch_Data(query="burger",card_holder_div=".recipie-card")
+    new Hero_Animation()
 }
 
 

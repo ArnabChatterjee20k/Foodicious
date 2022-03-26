@@ -38,6 +38,7 @@ button{
     cursor: pointer;
     font-family: sans-serif;
     border-radius: 5px;
+    user-select: none;
 }
 /* nav section */
 
@@ -259,6 +260,7 @@ nav{
 
 .recipie-card{
     display: grid;
+    width: 100%;
     grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
     grid-auto-rows: minmax(100px,1fr);
     gap: 20px;
