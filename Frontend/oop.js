@@ -85,7 +85,8 @@ class Fetch_Data extends Recipie_Section {
      */
     async get_recipie(query) {
         this.card_holder.innerHTML = ""
-        const url = `https://api.spoonacular.com/food/search?apiKey=3300b39907ba48109dcef0b2020ac99c&query=${query}&number=10`;
+        // const url = `https://api.spoonacular.com/food/search?apiKey=3300b39907ba48109dcef0b2020ac99c&query=${query}&number=10`;
+        const url =  `/demo.json`
         const data = await fetch(url).then((res) => res.json())
         const recipie_traversed_json = data[`${this.parent_key}`][0][`${this.child_key}`]
         recipie_traversed_json.map(({ name, image },index) => {
@@ -129,6 +130,7 @@ class Search_bar extends Fetch_Data{
         this.input = document.querySelector(search_input)
         this.btn = document.querySelector(search_btn)
 
+        this.input.value = "burger"
         this.fetch_data()
     }
 
