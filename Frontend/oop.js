@@ -72,7 +72,8 @@ class Recipie_Section extends Card {
 class Fetch_Data extends Recipie_Section {
     constructor(query,card_holder_div) {
         super(card_holder_div)
-        this.url = `https://api.spoonacular.com/food/search?apiKey=3300b39907ba48109dcef0b2020ac99c&query=${query}&number=10`;
+        // this.url = `https://api.spoonacular.com/food/search?apiKey=3300b39907ba48109dcef0b2020ac99c&query=${query}&number=10`;
+        this.url = "demo.json";
         this.state = []
         this.parent_key = "searchResults";
         this.child_key = "results";
@@ -131,19 +132,22 @@ class Search_bar extends Fetch_Data{
     }
 
     match_pattern(data){
-        let check_pattern = new RegExp("^[\s\t\n]*$")
+        let check_pattern =  /^[a-zA-Z]\S*$/ 
+        /** must start with alphabet and then no white space characters */
         return check_pattern.test(data)
     }
 
     fetch_data(){
-        const query = this.input.value
         this.btn.onclick = ()=>{
+            const query = this.input.value
             console.log(this.match_pattern(query))
+            console.log(this.match_pattern(query)?this.get_recipie():alert("error"))
         }
     }
 }
 document.querySelector("body").onload = ()=>{
-    let data = new Fetch_Data(query="burger",card_holder_div=".recipie-card")
+    // let data = new Fetch_Data(query="burger",card_holder_div=".recipie-card")
+    let data = new Search_bar(".search",".search-btn")
     new Hero_Animation()
 }
 
