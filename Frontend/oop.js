@@ -70,24 +70,25 @@ class Recipie_Section extends Card {
 }
 
 class Fetch_Data extends Recipie_Section {
-    constructor(query,card_holder_div) {
+    constructor(card_holder_div) {
         super(card_holder_div)
-        // this.url = `https://api.spoonacular.com/food/search?apiKey=3300b39907ba48109dcef0b2020ac99c&query=${query}&number=10`;
-        this.url = "demo.json";
         this.state = []
         this.parent_key = "searchResults";
         this.child_key = "results";
         this.array_index = 0
 
-        this.get_recipie()
+        this.get_recipie("burger")
     }
     /**
      * 
      * @returns this
      */
-    async get_recipie() {
-        const data = await fetch(this.url).then((res) => res.json())
-        data.searchResults[0].results.map(({ name, image },index) => {
+    async get_recipie(query) {
+        this.card_holder.innerHTML = ""
+        const url = `https://api.spoonacular.com/food/search?apiKey=3300b39907ba48109dcef0b2020ac99c&query=${query}&number=10`;
+        const data = await fetch(url).then((res) => res.json())
+        const recipie_traversed_json = data[`${this.parent_key}`][0][`${this.child_key}`]
+        recipie_traversed_json.map(({ name, image },index) => {
             this.state = {...this.state,name,image,id:index}
             this.insertCard()
         })
@@ -123,8 +124,8 @@ class Hero_Animation {
 }
 
 class Search_bar extends Fetch_Data{
-    constructor(search_input,search_btn) {
-        super()
+    constructor(search_input,search_btn,query,card_holder_div) {
+        super(query,card_holder_div)
         this.input = document.querySelector(search_input)
         this.btn = document.querySelector(search_btn)
 
@@ -140,14 +141,13 @@ class Search_bar extends Fetch_Data{
     fetch_data(){
         this.btn.onclick = ()=>{
             const query = this.input.value
-            console.log(this.match_pattern(query))
-            console.log(this.match_pattern(query)?this.get_recipie():alert("error"))
+            this.match_pattern(query)?this.get_recipie(query):alert("error")
         }
     }
 }
 document.querySelector("body").onload = ()=>{
     // let data = new Fetch_Data(query="burger",card_holder_div=".recipie-card")
-    let data = new Search_bar(".search",".search-btn")
+    let data = new Search_bar(".search",".search-btn",card_holder_div=".recipie-card")
     new Hero_Animation()
 }
 
