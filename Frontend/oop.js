@@ -26,7 +26,7 @@ class Card {
         card_img.setAttribute("class", "card-img")
         let img = document.createElement("img")
         img.src = this.state.image
-        img.alt = this.state.name
+        // img.alt = this.state.name
         card_img.append(img)
         card.append(card_img);
 

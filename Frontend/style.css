@@ -268,11 +268,13 @@ nav{
     padding: 2em;
 
 }
-/* .loader{
+.loader{
     position: absolute;
     width: 100%;
     z-index: 2;
-} */
+    left: 50%;
+    bottom: 0;
+}
 .card{
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
@@ -291,18 +293,21 @@ nav{
     margin: 0.5em;
     padding: 0.5em;
 }
+
 .card-img{
-    width: 8rem;
     height: 8rem;
-}
-.card-img img{
-    max-width: 100%;
-    object-fit: cover;
     width: 8rem;
-    height: 8rem;
+    background-color: gray;
     border-radius: 50%;
     border: 10px solid #ffa726;
     filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.3));
+}
+.card-img img{
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 
