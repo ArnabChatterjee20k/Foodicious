@@ -248,16 +248,14 @@ nav{
     transform: translateX(-50%);
     z-index: 2;
     max-width: 100%;
-    border: 12px solid #ffba39;
+    border: 8px solid #ffba39;
     border-radius: 15px;
     transition: 1s ease-in-out;
-    top: calc(100% + 2rem);
+    top: calc(100%);
     opacity: 1;
     width: 5rem;
     height: 5rem;
-    margin: 4rem;
-    
-    
+    margin: 1.25em;
 }
 
 .loader-loaded{
