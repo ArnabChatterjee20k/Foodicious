@@ -208,7 +208,8 @@ nav{
     justify-content: center;
     border-radius: 5px;
     box-shadow: 20px 20px 60px #9d9a9a,
-    20px -20px 60px #d5d0d0;
+    20px -20px 60px hsl(0, 6%, 83%);
+    position: relative;
 }
 
 .search{
@@ -240,7 +241,33 @@ nav{
     border: none;
     padding: 0.4rem;
 }
+.loader{
+    content: url(Images/Spinner.svg);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    max-width: 100%;
+    border: 12px solid #ffba39;
+    border-radius: 15px;
+    transition: 1s ease-in-out;
+    top: calc(100% + 2rem);
+    opacity: 1;
+    width: 5rem;
+    height: 5rem;
+    margin: 4rem;
+    
+    
+}
 
+.loader-loaded{
+    top: 0;
+    opacity: 0;
+    z-index: -1;
+}
+.loader-img{
+    max-width: 100%;
+}
 .search-btn-img{
     --color: orange;
     max-width: 100%;
@@ -259,7 +286,6 @@ nav{
 }
 /* Recipie section */
 .recipie-card{
-    position: relative;
     display: grid;
     width: 100%;
     grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
@@ -267,13 +293,6 @@ nav{
     gap: 20px;
     padding: 2em;
 
-}
-.loader{
-    position: absolute;
-    width: 100%;
-    z-index: 2;
-    left: 50%;
-    bottom: 0;
 }
 .card{
     background-color: white;
@@ -299,8 +318,7 @@ nav{
     width: 8rem;
     background-color: gray;
     border-radius: 50%;
-    border: 10px solid #ffa726;
-    filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
 }
 .card-img img{
     max-width: 100%;

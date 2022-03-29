@@ -70,13 +70,13 @@ class Recipie_Section extends Card {
 }
 
 class Fetch_Data extends Recipie_Section {
-    constructor(card_holder_div) {
+    constructor(card_holder_div,search_loader) {
         super(card_holder_div)
         this.state = []
         this.parent_key = "searchResults";
         this.child_key = "results";
         this.array_index = 0
-
+        this.search_loader = document.querySelector(search_loader)
         this.get_recipie("burger")
     }
     /**
@@ -85,14 +85,20 @@ class Fetch_Data extends Recipie_Section {
      */
     async get_recipie(query) {
         this.card_holder.innerHTML = ""
-        // const url = `https://api.spoonacular.com/food/search?apiKey=3300b39907ba48109dcef0b2020ac99c&query=${query}&number=10`;
-        const url =  `/demo.json`
-        const data = await fetch(url).then((res) => res.json())
+        const url = `https://api.spoonacular.com/food/search?apiKey=3300b39907ba48109dcef0b2020ac99c&query=${query}&number=10`;
+        // const url =  `/demo.json`
+        this.search_loader.classList.remove("loader-loaded")
+        const data = await fetch(url).then(
+            (res) => {
+                return res.json()
+            }
+            )
         const recipie_traversed_json = data[`${this.parent_key}`][0][`${this.child_key}`]
         recipie_traversed_json.map(({ name, image },index) => {
             this.state = {...this.state,name,image,id:index}
             this.insertCard()
         })
+        this.search_loader.classList.add("loader-loaded")
         return this
     }
 }
@@ -125,8 +131,8 @@ class Hero_Animation {
 }
 
 class Search_bar extends Fetch_Data{
-    constructor(search_input,search_btn,query,card_holder_div) {
-        super(query,card_holder_div)
+    constructor(search_input,search_btn,query,card_holder_div,search_loader) {
+        super(query,card_holder_div,search_loader)
         this.input = document.querySelector(search_input)
         this.btn = document.querySelector(search_btn)
 
@@ -149,7 +155,7 @@ class Search_bar extends Fetch_Data{
 }
 document.querySelector("body").onload = ()=>{
     // let data = new Fetch_Data(query="burger",card_holder_div=".recipie-card")
-    let data = new Search_bar(".search",".search-btn",card_holder_div=".recipie-card")
+    let data = new Search_bar(".search",".search-btn",card_holder_div=".recipie-card",".loader")
     new Hero_Animation()
 }
 
