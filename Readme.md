@@ -1,4 +1,4 @@
-# Foodilicious
+# Foodilicious - both backend and frontend
 > A practice project for implementing js fetch , oops principle and css grid and some js libraries.
 
 # Libraries used
